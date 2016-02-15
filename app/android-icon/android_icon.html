@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/bootstrap/css/bootstrap-slider.css" rel="stylesheet">
+    <script src="static/lib/jquery-2.2.0.js"></script>
+    <script src="static/bootstrap/js/bootstrap.js"></script>
+    <script src="static/bootstrap/js/bootstrap-filestyle.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap-slider.js"></script>
+    <script src="static/lib/bootbox.min.js"></script>
+    <script src="static/lib/jszip.js"></script>
+    <!-- -->
+    <script src="static/mibear.js"></script>
+    <script src="android_icon.js"></script>
+    <script src="static/lib/studio/util.js"></script>
+    <script src="static/lib/imagelib/drawing.js"></script>
+    
+    <title>Android Icon</title>
+    <style type="text/css">
+        body { padding:20px; padding-top:70px; }
+        .row { margin:8px; }
+    </style>
+      
+</head>
+<body>
+<!-- navbar -->
+<nav id="rtNavbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#rtMenu">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">Android icon</a>
+        </div>
+        <div id="rtMenu" class="collapse navbar-collapse">
+            <form class="navbar-form navbar-right">
+                <input type="file" id="inAppend" class="filestyle" data-badge="false" data-input="false" data-icon="false" data-buttonText="추가" accept="image/*" multiple/>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">안드스튜디오 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="https://romannurik.github.io/AndroidAssetStudio/index.html" target="_blank">홈</a></li>
+                        <li class="divider"></li>
+                        <li><a href="https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html" target="_blank">런처 아이콘</a></li>
+                        <li><a href="https://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html" target="_blank">액션바 탭바 아이콘</a></li>
+                        <li><a href="https://romannurik.github.io/AndroidAssetStudio/icons-notification.html" target="_blank">알림 아이콘</a></li>
+                        <li><a href="https://romannurik.github.io/AndroidAssetStudio/icons-generic.html" target="_blank">일반 아이콘</a></li>
+                        <li class="divider"></li>
+                        <li><a href="https://romannurik.github.io/AndroidAssetStudio/nine-patches.html" target="_blank">나인패치</a></li>
+                        <li><a href="http://jgilfelt.github.com/android-actionbarstylegenerator/" target="_blank">액션바 스타일</a></li>
+                    </ul>
+                </li>
+                <li><a id="btSave" href="#">저장</a></li>
+                <li><a id="btSetup" href="#">설정</a></li>
+            </ul>            
+        </div>
+    </div>
+</nav>
+<!-- navbar end -->
+
+<!-- icon content -->
+<div id="rtIconContainer" class="wrapper container">
+</div>
+
+<!-- icon item -->
+<div id="rtIcon" class="mb-icon-item col-md-12 hide">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="sr-only" for="inFile">file name</label>
+                        <div class="input-group" >
+                            <div class="input-group-addon">Name</div>
+                            <input type="text" id="inFile" class="form-control" placeholder="file name" style="width:360px;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 text-right">
+                <button type="button" id="btSetup" class="btn btn-primary" data-toggle="tooltip" data-placement="down" title="설정"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+                <button type="button" id="btRemove" class="btn btn-danger" data-toggle="tooltip" data-placement="down" title="삭제"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <button type="button" id="btAppend" class="btn btn-default" data-toggle="tooltip" data-placement="down" title="상태추가"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+            </div>
+        </div>
+        <div id="rtStateContainer" class="row" style="margin-top:16px;">
+        </div>
+   </div>
+</div>
+</div>
+<div id="rtState" class="col-md-3 hide">
+    <div class="thumbnail">
+        <img src="/static/icarusx_skin_info_push.png">
+        <div class="caption">
+            <p><h3>normal</h3></p>
+            <p><h6></h6></p>
+            <p><form class="form-inline text-right">
+                <button id="btRemove" class="btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <input type="file" id="inOpen" accept="image/*"/>
+            </form></p>
+        </div>
+    </div>
+</div>
+<!-- icon item end -->
+
+<!-- dialog append state -->
+<div id="dlgAppendSatae" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">상태추가</h4>
+            </div>
+            <div class="modal-body">
+                <div class="list-group">
+                    <a href="#" id="normal"  class="list-group-item">normal</a>
+                    <a href="#" id="pressed" class="list-group-item">pressed</a>
+                    <a href="#" id="checked" class="list-group-item">checked</a>
+                    <a href="#" id="diabled" class="list-group-item">diabled</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                <button type="button" id="btOk" class="btn btn-primary">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- dialog append end -->
+
+<!-- dialog setup -->
+<div id="dlgSetup" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">설정</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>기준사이즈</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="inBaseSize" type="text" class="mb-slide" data-slider-min="4" data-slider-max="200" data-slider-step="1" data-slider-value="16" data-slider-tooltip="hide">
+                            <span>&nbsp;&nbsp;&nbsp;</span><span id="txBaseSize">16</span><span>&nbsp;dip</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>여백</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="inPadding" type="text" class="mb-slide" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-tooltip="hide">
+                            <span>&nbsp;&nbsp;&nbsp;</span><span id="txPadding">0</span><span>&nbsp;dip</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                <button type="button" id="btOk" class="btn btn-primary">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- dialog setup end -->
+
+</body>
+</html>
