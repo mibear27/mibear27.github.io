@@ -231,7 +231,7 @@ $( function() {
     var dlgSetup = new DlgSetup( $("#dlgSetup") );
     
     //
-    var settings = { size : 16, padding : 0 };
+    var settings = { size : 32, padding : 0 };
     var item_settings = {};
     
     //
@@ -383,15 +383,15 @@ $( function() {
                           '<selector xmlns:android="http://schemas.android.com/apk/res/android">\n';
                           
                 if( "diabled" in drawable ) {
-                    xml += '<item android:state_enabled="false" android:drawable="@drawable/' + drawable.diabled + '" />\n';
+                    xml += '<item android:state_enabled="false" android:drawable="@drawable/' + drawable.diabled.split( "." )[0] + '" />\n';
                 }                          
 
                 if( "pressed" in drawable ) {
-                    xml += '<item android:state_pressed="true" android:drawable="@drawable/' + drawable.pressed + '" />\n';
+                    xml += '<item android:state_pressed="true" android:drawable="@drawable/' + drawable.pressed.split( "." )[0] + '" />\n';
                 }
                 
                 if( "normal" in drawable ) {
-                    xml += '<item android:drawable="@drawable/' + drawable.normal + '" />\n';
+                    xml += '<item android:drawable="@drawable/' + drawable.normal.split( "." )[0] + '" />\n';
                 }
                 xml += '</selector>';
                 
